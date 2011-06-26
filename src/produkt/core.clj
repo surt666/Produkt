@@ -13,39 +13,69 @@
   (opdater [p o])
   (hent [p]))
 
-(defrecord Produkt [id navn services hardware meta])
+(defrecord Produkt [varenr navn services hardware meta])
 
 (defrecord Service [id navn prov-system prov-id])
 
 (defrecord Hardware [id navn logistik-system logistik-kode har-sn])
 
+(defrecord Link [bucket key tag])
+
+(defn riak-put [bucket rec]
+  (riak/put rc bucket (:id rec)
+            {:value (.getBytes (json/json-str rec))
+             :content-type "application/json"}))
+
+(defn riak-get [bucket rec]
+  (let [res (riak/get rc bucket (:id rec))]
+    (when res
+      (json/read-json (String. (:value res))))))
+
 (extend-type Service
   ProduktHandler
   (opret [p]
-    (riak/put rc "services" (:id p)
-              {:value (.getBytes (json/json-str p))
-               :content-type "application/json"}))
+    (riak-put "services" p))
   (slet [p]
     (riak/delete rc "services" (:id p)))
-  (opdater [p ox])
+  (opdater [p o])
   (hent [p]
-    (let [res (riak/get rc "services" (:id p))]
-      (when res
-        (json/read-json (String. (:value res)))))))
+    (riak-get "services" p)))
 
 (extend-type Hardware
   ProduktHandler
   (opret [p]
-    (riak/put rc "hardware" (:id p)
-              {:value (.getBytes (json/json-str p))
-               :content-type "application/json"}))
+    (riak-put "hardware" p))
   (slet [p]
     (riak/delete rc "hardware" (:id p)))
-  (opdater [p ox])
+  (opdater [p o])
   (hent [p]
-    (let [res (riak/get rc "hardware" (:id p))]
+    (riak-get "hardware" p)))
+
+(extend-type Produkt
+  ProduktHandler
+  (opret [p]
+    (let [links (concat (:services p) (:hardware p))
+          value (dissoc p :services :hardware)]     
+      (riak/put rc "produkter" (:varenr value)
+            {:value (.getBytes (json/json-str value))
+             :content-type "application/json"
+             :links links})))
+  (slet [p])
+  (opdater [p o])
+  (hent [p]
+    (let [res (riak/get rc "produkter" (:varenr p))]
+      (prn (:links res))
       (when res
         (json/read-json (String. (:value res)))))))
+
+(defn test-p []
+  (let [s (Service. "1101001" "GP" "Bier" "GP")
+        h (Hardware. "123" "Boks" "IRIS" "SAMS-HD" true)
+        p (Produkt. "1101111" "Underligt bundle" [(Link. "services" "1101001" "service")] [(Link. "hardware" "123" "hw")] {:sorteringsgruppe "1122" :sortering "1" :kortnavn "Und. Bu" :varetype "bu"})]
+    (opret s)
+    (opret h)
+    (opret p)
+    (hent p)))
 
 (defn test-s []
   (let [s (Service. "1101001" "GP" "Bier" "GP")]
