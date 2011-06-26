@@ -39,7 +39,8 @@
     (riak/delete rc "services" (:id p)))
   (opdater [p o])
   (hent [p]
-    (riak-get "services" p)))
+    (let [s (riak-get "services" p)]
+      (Service. (:id s) (:navn s) (:prov-system s) (:prov-id s)))))
 
 (extend-type Hardware
   ProduktHandler
@@ -49,7 +50,8 @@
     (riak/delete rc "hardware" (:id p)))
   (opdater [p o])
   (hent [p]
-    (riak-get "hardware" p)))
+    (let [h (riak-get "hardware" p)]
+      (Hardware. (:id h) (:navn h) (:logistik-system h) (:logistik-kode h) (:har-sn h)))))
 
 (extend-type Produkt
   ProduktHandler
@@ -64,10 +66,13 @@
     (riak/delete rc "produkter" (:varenr p)))
   (opdater [p o])
   (hent [p]
-    (let [res (riak/get rc "produkter" (:varenr p))]
-      (prn (:links res))
+    (let [res (riak/get rc "produkter" (:varenr p))
+          links (:links res)
+          services (filter #(= (:tag %) "service") links)
+          hardware (filter #(= (:tag %) "hw") links)
+          p (assoc (json/read-json (String. (:value res))) :services services :hardware hardware)]      
       (when res
-        (json/read-json (String. (:value res)))))))
+        (Produkt. (:varenr p) (:navn p) (:services p) (:hardware p) (:meta p))))))
 
 (defn test-p []
   (let [s (Service. "1101001" "GP" "Bier" "GP")
