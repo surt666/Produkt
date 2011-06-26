@@ -60,7 +60,8 @@
             {:value (.getBytes (json/json-str value))
              :content-type "application/json"
              :links links})))
-  (slet [p])
+  (slet [p]
+    (riak/delete rc "produkter" (:varenr p)))
   (opdater [p o])
   (hent [p]
     (let [res (riak/get rc "produkter" (:varenr p))]
