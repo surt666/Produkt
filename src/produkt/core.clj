@@ -21,6 +21,12 @@
 
 (defrecord Link [bucket key tag])
 
+(defn find-alle [bucket]
+  (map #(first (json/read-json %)) (riak/map-reduce rc
+                                                    {"inputs" bucket
+                                                     "query" [{"map" {"language" "javascript"
+                                                                      "name" "Riak.mapValuesJson"
+                                                                      "keep" true}}]})))
 (defn riak-put [bucket rec]
   (riak/put rc bucket (:id rec)
             {:value (.getBytes (json/json-str rec))
@@ -76,9 +82,11 @@
 
 (defn test-p []
   (let [s (Service. "1101001" "GP" "Bier" "GP")
+        s2 (Service. "1101101" "MP" "Bier" "MP")
         h (Hardware. "123" "Boks" "IRIS" "SAMS-HD" true)
         p (Produkt. "1101111" "Underligt bundle" [(Link. "services" "1101001" "service")] [(Link. "hardware" "123" "hw")] {:sorteringsgruppe "1122" :sortering "1" :kortnavn "Und. Bu" :varetype "bu"})]
     (opret s)
+    (opret s2)
     (opret h)
     (opret p)
     (hent p)))
