@@ -22,11 +22,13 @@
 (defrecord Link [bucket key tag])
 
 (defn find-alle [bucket]
-  (map #(first (json/read-json %)) (riak/map-reduce rc
-                                                    {"inputs" bucket
-                                                     "query" [{"map" {"language" "javascript"
-                                                                      "name" "Riak.mapValuesJson"
-                                                                      "keep" true}}]})))
+  (let [ro (riak/map-reduce rc
+                            {"inputs" bucket
+                             "query" [{"map" {"language" "javascript"
+                                              "name" "Riak.mapValuesJson"
+                                              "keep" true}}]})]    
+    (first (map #(json/read-json %) ro))))
+
 (defn riak-put [bucket rec]
   (riak/put rc bucket (:id rec)
             {:value (.getBytes (json/json-str rec))
