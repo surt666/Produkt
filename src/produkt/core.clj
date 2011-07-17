@@ -26,8 +26,8 @@
                             {"inputs" bucket
                              "query" [{"map" {"language" "javascript"
                                               "name" "Riak.mapValuesJson"
-                                              "keep" true}}]})]    
-    (first (map #(json/read-json %) ro))))
+                                              "keep" true}}]})]
+    (flatten (map #(json/read-json %) ro))))
 
 (defn riak-put [bucket rec]
   (riak/put rc bucket (:id rec)
