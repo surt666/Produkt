@@ -16,8 +16,8 @@
   (produkt.core.Hardware. (:id body) (:navn body) (:logistik-system body) (:logistik-kode body) (:har-sn body)))
 
 (defn- opret-produkt [body]
-  (let [services (map #(produkt.core.Link. "services" % "service") (:service-ids body))
-        hardware (map #(produkt.core.Link. "hardware" % "hw") (:hardware-ids body))]
+  (let [services (map #(produkt.core.Link. "services" % "service") (:services body))
+        hardware (map #(produkt.core.Link. "hardware" % "hw") (:hardware body))]
     (produkt.core.Produkt. (:varenr body) (:navn body) services hardware (:meta body))))
 
 (defn- opret-objekt [type body]
@@ -59,10 +59,10 @@
           (prn "B" type body)
           (try
             (opret objekt)
-            (json-response {:res true} "application/json" :status 201)
+            (json-response {:res "ok"} "application/json" :status 201)
             (catch Exception e
               (prn "E" (.getMessage e))
-              (json-response (.getMessage e) "application/json" :status 409)))))
+              (json-response {:res (.getMessage e)} "application/json" :status 409)))))
 
   (route/not-found "UPS det er jo helt forkert det der !"))
 
