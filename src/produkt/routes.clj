@@ -26,7 +26,7 @@
    (= type "service") (opret-service body)
    (= type "hardware") (opret-hw body)
    (= type "produkt") (opret-produkt body)))
-
+  
 (defroutes handler
   (GET "/produkt/findalle/:bucket" [bucket]
        (json/json-str (find-alle bucket)))
@@ -46,24 +46,27 @@
               (= type "service") (produkt.core.Service. id nil nil nil)
               (= type "hardware") (produkt.core.Hardware. id nil nil nil nil)
               (= type "produkt") (produkt.core.Produkt. id nil nil nil nil)))
-            (json-response nil "bla" :status 200)
+            (json-response nil "application/json" :status 200)
             (catch Exception e
-              (json-response e "bla" :status 409))))
-
-  (POST "/produkt/opret/:type" req        
+              (json-response (.getMessage e) "application/json" :status 409))))
+  
+ 
+  (POST "/produkt/opret/:type" req
+        (prn req)
         (let [type (get-in req [:route-params :type])
               body (parse-body (:body req))
               objekt (opret-objekt type body)]
+          (prn "B" type body)
           (try
             (opret objekt)
-            (json-response nil "bla" :status 201)
+            (json-response nil "application/json" :status 201)
             (catch Exception e
-              (json-response e "bla" :status 409)))))
+              (prn "E" (.getMessage e))
+              (json-response (.getMessage e) "application/json" :status 409)))))
 
   (route/not-found "UPS det er jo helt forkert det der !"))
 
 (def app
   (-> (handler/site handler)
-      (wrap-request-log-and-error-handling :body-str :body :status :server-port :query-string :server-name :uri :request-method :content-type :headers :json-params :params)
-      (wrap-body-to-str)
+      (wrap-request-log-and-error-handling :body-str :body :status :server-port :query-string :server-name :uri :request-method :content-type :headers :json-params :params)      
       (wrap-jsonp "callback"))) 

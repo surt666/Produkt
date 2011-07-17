@@ -6,7 +6,7 @@
                  [ring/ring-core "0.3.10" :exclusions [javax.servlet/servlet-api]]
                  [ring/ring-servlet "0.3.10" :exclusions [javax.servlet/servlet-api]]
                  [ring-json-params "0.1.3"]
-                 [yousee-common "1.0.26"]
+                 [yousee-common "1.0.27"]
                  [ring-common "1.1.1"]
                  [log4j "1.2.15" :exclusions [javax.mail/mail
                                               javax.jms/jms
