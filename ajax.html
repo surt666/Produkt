@@ -1,0 +1,42 @@
+<html>                                                                  
+ <head>                                                                  
+ <script type="text/javascript" src="jquery-1.6.2.js"></script>          
+ <script type="text/javascript">                                         
+   $(document).ready(function() {     
+    //if submit button is clicked
+    $('#submit').click(function () {                 
+        var datamap = {"varenr": "1201001", "navn": "BLABLA"};
+        $.ajax({           
+            url: "http://localhost:41001/produkt/opret/produkt",            
+            type: "POST", 
+            contentType: "application/json",  
+            data: JSON.stringify(datamap),             
+            cache: false,                
+            success: function(res) {              
+              alert("SUCCESS " + res);               
+            },
+            error: function(xhr, ts, et) {
+              alert("ERROR " + xhr.status + " " + xhr.statusText + " " + ts);
+            }       
+        });
+        return false;
+    }); 
+   });     
+
+   /*$(document).ready(function(){
+    $('#submit').click(function(){
+        $.post("http://localhost:8080/produkt/opret/produkt", {varenr: "1201001", navn: "BLABLA"},
+            function(data){
+                console.log(data);               
+            }, 'json');
+    })
+   }); */                               
+ </script>                                                               
+ </head>                                                                 
+ <body>                                                                  
+   <h1>Test</h1>   
+   <form action="" id="f1">
+     <input type="submit" id="submit" value="OK" />
+   </form>                                    
+ </body>                                                                 
+</html>

@@ -1,0 +1,28 @@
+(ns jetty
+  (:use ring.adapter.jetty)
+<<<<<<< HEAD
+  (:use produkt.routes)  
+  (:import (org.mortbay.xml XmlConfiguration)
+	   (org.mortbay.jetty.webapp WebAppContext)))
+
+(defn init-server [server]
+  (try 
+=======
+  (:use produkt.routes)
+  (:import (org.mortbay.xml XmlConfiguration)))
+
+(defn init-server [server]
+  (try    
+>>>>>>> d237f774daeffe5963c7a95bd22230f6c2074fea
+    (let [config (XmlConfiguration. (slurp "test/jetty-web.xml"))]   
+      (. config configure server))
+    (catch Exception e
+      (prn "Unable to load jetty configuration")
+      (. e printStackTrace))))
+<<<<<<< HEAD
+=======
+
+>>>>>>> d237f774daeffe5963c7a95bd22230f6c2074fea
+
+(defn boot []
+  (future (run-jetty #'app {:port 8080 :configurator init-server})))
