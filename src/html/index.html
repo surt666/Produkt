@@ -3,7 +3,7 @@
   <head>
     <script type="text/javascript" src="jquery-1.6.2.js"></script>          
     <script type="text/javascript">                                         
-     $(function() {
+     $(document).ready(function() {
        $('.error').hide();  
        $.ajax({        
          url: "http://localhost:8080/produkt/findalle/services",
@@ -33,7 +33,7 @@
            alert("FUCK2 " + xhr.status + " " + xhr.message);
          }
        });
-       $('#submit_p').click(function() {
+       $("#submit_p").click(function() {
          var varenr = $("input#varenr").val(); 
          if (varenr == "") {  
            $("label#varenr_error").show();  
@@ -88,6 +88,7 @@
           <p><input type="submit" id="submit_p" value="Opret" /></p>
         </fieldset>
       </form>
+      <p><a href="service.html">Opret service</a>&nbsp;<a href="hardware.html">Opret hardware</a></p>
     </div>
   </body>
 </html>
