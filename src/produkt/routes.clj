@@ -59,7 +59,8 @@
           (prn "B" type body)
           (try
             (opret objekt)
-            (json-response {:res "ok"} "application/json" :status 201)
+            {:status 201}
+            ;;(json-response {:res "ok"} "application/json" :status 201)
             (catch Exception e
               (prn "E" (.getMessage e))
               (json-response {:res (.getMessage e)} "application/json" :status 409)))))

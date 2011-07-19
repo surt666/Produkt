@@ -8,6 +8,7 @@
                  [ring-json-params "0.1.3"]
                  [yousee-common "1.0.27"]
                  [ring-common "1.1.1"]
+                 [org.tuckey/urlrewrite "3.2.0"]
                  [log4j "1.2.15" :exclusions [javax.mail/mail
                                               javax.jms/jms
                                               com.sun.jdmk/jmxtools
