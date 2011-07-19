@@ -5,6 +5,16 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
   <display-name>Produkt Api</display-name>  
+  <servlet>
+    <servlet-name>produkt</servlet-name>
+    <servlet-class>produkt.servlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>produkt</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+
   <filter>
     <filter-name>UrlRewriteFilter</filter-name>
     <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
@@ -12,10 +22,10 @@
       <param-name>statusEnabledOnHosts</param-name>
       <param-value>*</param-value>
     </init-param>
-    <init-param>
+    <!--init-param>
       <param-name>confPath</param-name>
       <param-value>test/urlrewritefilter.xml</param-value>
-    </init-param>
+    </init-param-->
   </filter>
   <filter-mapping>
     <filter-name>UrlRewriteFilter</filter-name>
