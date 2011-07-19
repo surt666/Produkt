@@ -8,6 +8,7 @@
                  [yousee-common "1.0.27"]
                  [ring-common "1.1.1"]
                  [org.tuckey/urlrewrite "3.2.0"]
+                 [cors/cors-filter "1.2"]
                  [log4j "1.2.15" :exclusions [javax.mail/mail
                                               javax.jms/jms
                                               com.sun.jdmk/jmxtools

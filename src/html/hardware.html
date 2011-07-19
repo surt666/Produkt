@@ -30,7 +30,7 @@
              $("input#logistik_system").val(res["logistik-system"]);
              $("input#logistik_kode").val(res["logistik-kode"])
              if (res["har-sn"] == true) {
-               $("input#har_sn").checked(true);
+               $("input#har_sn").attr("checked",true);
              }
            },
            error: function(xhr, ao, te) {

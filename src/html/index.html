@@ -50,12 +50,11 @@
          var hardware = $("select#hardware").val();
          var datamap = {varenr: varenr, navn: navn, services: services, hardware: hardware};
          //alert (JSON.stringify(datamap));return false;
-         $.ajax({ 
-          accepts: "application/json",        
+         $.ajax({          
           cache: false,
           type: "POST",
           url: "http://localhost:8080/produkt/opret/produkt",
-          contentType: "text/plain", 
+          contentType: "application/json", 
           data: JSON.stringify(datamap),
           //processData: false,         
           success: function(res) {
@@ -73,22 +72,22 @@
   <body>
     <h1>Produkter</h1>
     <div id="form1">
-      <form action="" id="produkt">
-        <fieldset>
-          <p><label for="varenr">Varenr:</label>
-          <input type="text" id="varenr" />
-          <label class="error" for="varenr" id="varenr_error">This field is required.</label></p>  
-          <p><label for="navn">Navn:</label>
-          <input type="text" id="navn" />
-          <label class="error" for="navn" id="navn_error">This field is required.</label></p>
-          <p><label for="hardware">Hardware:</label>
-          <select id="hardware" name="hardware" multiple="multiple"></select> 
-          <label for="services">Services:</label>
-          <select id="services" name="services" multiple="multiple"></select></p>          
-          <p><input type="submit" id="submit_p" value="Opret" /></p>
-        </fieldset>
-      </form>
-      <p><a href="service.html">Opret service</a>&nbsp;<a href="hardware.html">Opret hardware</a></p>
+      <form action="" id="produkt">             
+          <fieldset>
+            <p><label for="varenr">Varenr:</label>
+              <input type="text" id="varenr" />
+              <label class="error" for="varenr" id="varenr_error">This field is required.</label></p>  
+            <p><label for="navn">Navn:</label>
+              <input type="text" id="navn" />
+              <label class="error" for="navn" id="navn_error">This field is required.</label></p>
+            <p><label for="hardware">Hardware:</label>
+              <select id="hardware" name="hardware" multiple="multiple"></select> 
+              <label for="services">Services:</label>
+              <select id="services" name="services" multiple="multiple"></select></p>          
+            <p><input type="submit" id="submit_p" value="Opret" /></p>
+          </fieldset>                
+        </form>            
+      <p><a href="service.html">Opret service</a>&nbsp;<a href="hardware.html">Opret hardware</a>&nbsp;<a href="meta.html">Metadata</a></p>
     </div>
   </body>
 </html>
