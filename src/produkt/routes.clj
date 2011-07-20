@@ -20,8 +20,7 @@
         hardware (map #(produkt.core.Link. "hardware" % "hw") (:hardware body))]
     (produkt.core.Produkt. (:varenr body) (:navn body) services hardware (:meta body))))
 
-(defn- opret-objekt [type body]
-  (prn type body)
+(defn- opret-objekt [type body]  
   (cond
    (= type "service") (opret-service body)
    (= type "hardware") (opret-hw body)

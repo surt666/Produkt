@@ -7,7 +7,7 @@
        $('.error').hide();  
        $.ajax({        
          url: "http://localhost:8080/produkt/findalle/produkter",
-         dataType: "jsonp",
+         dataType: "json",
          success: function(res) {
            var optionsp = '';
            for (var i = 0; i < res.length; i++) {
@@ -21,7 +21,7 @@
        });
        $.ajax({        
          url: "http://localhost:8080/produkt/findalle/services",
-         dataType: "jsonp",
+         dataType: "json",
          success: function(res) {
            var optionss = '';
            for (var i = 0; i < res.length; i++) {
@@ -35,7 +35,7 @@
        });
        $.ajax({        
          url: "http://localhost:8080/produkt/findalle/hardware",
-         dataType: "jsonp",
+         dataType: "json",
          success: function(res) {
            var optionshw = '';
            for (var i = 0; i < res.length; i++) {
@@ -69,10 +69,12 @@
           type: "POST",
           url: "http://localhost:8080/produkt/opret/produkt",
           contentType: "application/json", 
-          data: JSON.stringify(datamap),
-          //processData: false,         
+          data: JSON.stringify(datamap),             
           success: function(res) {
-            alert("OK " + res);
+            $("input#varenr").val("");
+            $("input#navn").val("");
+            $("select#services").attr("selected",false);
+            $("select#hardware").attr("selected",false);
           },
           error: function(xhr, ts, te) {
             alert("FUCK " + xhr.status + " " + xhr.message + " " + ts + " " + te);
@@ -88,7 +90,7 @@
     <div id="form1">
       <form action="" id="produkt">             
           <fieldset>
-            <p><label for="produkter">Hardware:</label>
+            <p><label for="produkter">Produkter:</label>
               <select id="produkter" name="produkter"></select> 
             <p><label for="varenr">Varenr:</label>
               <input type="text" id="varenr" />

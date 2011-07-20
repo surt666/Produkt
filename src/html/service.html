@@ -7,7 +7,7 @@
        $(".error").hide();  
        $.ajax({        
          url: "http://localhost:8080/produkt/findalle/services",
-         dataType: "jsonp",
+         dataType: "json",
          success: function(res) {
            var optionss = '';
            for (var i = 0; i < res.length; i++) {
@@ -23,7 +23,7 @@
          var service = $("select#services").val(); 
          $.ajax({        
            url: "http://localhost:8080/produkt/find/service/" + service,
-           dataType: "jsonp",
+           dataType: "json",
            success: function(res) {
              $("input#id").val(res.id);
              $("input#navn").val(res.navn);
@@ -67,10 +67,12 @@
           type: "POST",
           url: "http://localhost:8080/produkt/opret/service",
           contentType: "text/plain", 
-          data: JSON.stringify(datamap),
-          //processData: false,         
+          data: JSON.stringify(datamap),                  
           success: function(res) {
-            alert("OK " + res);
+            $("input#id").val("");
+            $("input#navn").val("");
+            $("input#prov_system").val("");
+            $("input#prov_id").val("");
           },
           error: function(xhr, ts, te) {
             alert("FUCK " + xhr.status + " " + xhr.message + " " + ts + " " + te);
