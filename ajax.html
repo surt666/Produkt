@@ -7,7 +7,7 @@
     $('#submit').click(function () {                 
         var datamap = {"varenr": "1201001", "navn": "BLABLA"};
         $.ajax({           
-            url: "http://localhost:41001/produkt/opret/produkt",            
+            url: "http://localhost:8080/produkt/opret/produkt",            
             type: "POST", 
             contentType: "application/json",  
             data: JSON.stringify(datamap),             

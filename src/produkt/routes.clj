@@ -46,24 +46,27 @@
               (= type "service") (produkt.core.Service. id nil nil nil)
               (= type "hardware") (produkt.core.Hardware. id nil nil nil nil)
               (= type "produkt") (produkt.core.Produkt. id nil nil nil nil)))
-            (json-response nil "application/json" :status 200)
+            {:status 200}
             (catch Exception e
               (json-response (.getMessage e) "application/json" :status 409))))
   
  
-  (POST "/produkt/opret/:type" req
-        (prn req)
+  (POST "/produkt/opret/:type" req      
         (let [type (get-in req [:route-params :type])
               body (parse-body (:body req))
-              objekt (opret-objekt type body)]
-          (prn "B" type body)
+              objekt (opret-objekt type body)]          
           (try
             (opret objekt)
-            {:status 201}
-            ;;(json-response {:res "ok"} "application/json" :status 201)
+            {:status 201}           
             (catch Exception e
               (prn "E" (.getMessage e))
               (json-response {:res (.getMessage e)} "application/json" :status 409)))))
+
+  (ANY "/produkt/opret/:type" req   ;;should be OPTIONS but not implemented i compojure
+       {:status 200})
+
+  (ANY "/produkt/slet/:type/:id" req   ;;should be OPTIONS but not implemented i compojure
+       {:status 200})
 
   (route/not-found "UPS det er jo helt forkert det der !"))
 

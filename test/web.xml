@@ -5,22 +5,30 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     version="2.5">
   <display-name>Produkt Api</display-name>  
+
   <filter>
-    <filter-name>UrlRewriteFilter</filter-name>
-    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
     <init-param>
-      <param-name>statusEnabledOnHosts</param-name>
+      <param-name>cors.allowGenericHttpRequests</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.allowOrigin</param-name>
       <param-value>*</param-value>
     </init-param>
     <init-param>
-      <param-name>confPath</param-name>
-      <param-value>test/urlrewritefilter.xml</param-value>
+      <param-name>cors.supportedMethods</param-name>
+      <param-value>GET, PUT, POST, DELETE, OPTIONS</param-value>
+    </init-param>
+    <init-param>
+      <param-name>cors.supportedHeaders</param-name>
+      <param-value>Content-Type, Accept</param-value>
     </init-param>
   </filter>
+  
   <filter-mapping>
-    <filter-name>UrlRewriteFilter</filter-name>
+    <filter-name>CORS</filter-name>
     <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
 </web-app>

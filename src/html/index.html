@@ -6,6 +6,20 @@
      $(document).ready(function() {
        $('.error').hide();  
        $.ajax({        
+         url: "http://localhost:8080/produkt/findalle/produkter",
+         dataType: "jsonp",
+         success: function(res) {
+           var optionsp = '';
+           for (var i = 0; i < res.length; i++) {
+             optionsp += '<option value="' + res[i].id + '">' + res[i].navn + '</option>';
+           }
+           $("select#produkter").html(optionsp);
+         },
+         error: function(xhr, ao, te) {
+           alert("FUCK3 " + xhr.status + " " + xhr.message);
+         }
+       });
+       $.ajax({        
          url: "http://localhost:8080/produkt/findalle/services",
          dataType: "jsonp",
          success: function(res) {
@@ -74,6 +88,8 @@
     <div id="form1">
       <form action="" id="produkt">             
           <fieldset>
+            <p><label for="produkter">Hardware:</label>
+              <select id="produkter" name="produkter"></select> 
             <p><label for="varenr">Varenr:</label>
               <input type="text" id="varenr" />
               <label class="error" for="varenr" id="varenr_error">This field is required.</label></p>  
