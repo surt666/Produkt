@@ -1,3 +1,0 @@
-<Configure class="org.mortbay.jetty.webapp.WebAppContext">
-  <Set name="Descriptor">test/web.xml</Set>
-</Configure>

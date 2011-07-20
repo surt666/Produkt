@@ -1,4 +1,0 @@
-<Configure class="org.mortbay.jetty.webapp.WebAppContext">
-  <Call class="org.mortbay.log.Log" name="debug"><Arg>executing jetty-web.xml</Arg></Call>
-  <!-- <Set name="contextPath">/mycontext</Set> -->
-</Configure>
