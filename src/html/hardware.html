@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="jquery-1.6.2.js"></script>          
     <script type="text/javascript">                                         
      $(document).ready(function() {
@@ -92,28 +93,28 @@
   <body>
     <h1>Hardware</h1>
     <div id="form1">
-      <form action="" id="hardware">
-        <fieldset>
-          <p><label for="hardware">Hardware:</label>
+      <form action="" id="hardware">       
+        <p><label for="hardware">Hardware:</label>
           <select id="hardware" name="hardware" multiple="multiple"></select></p> 
-          <p><label for="id">Id:</label>
+        <p><label for="id">Id:</label>
           <input type="text" id="id" />
           <label class="error" for="id" id="id_error">This field is required.</label></p>  
-          <p><label for="navn">Navn:</label>
+        <p><label for="navn">Navn:</label>
           <input type="text" id="navn" />
           <label class="error" for="navn" id="navn_error">This field is required.</label></p> 
-          <p><label for="logistik_system">Logistik system:</label>
+        <p><label for="logistik_system">Logistik system:</label>
           <input type="text" id="logistik_system" />
           <label class="error" for="logistik_system" id="logistik_system_error">This field is required.</label></p>
-          <p><label for="logistik_kode">Logistik kode:</label>
+        <p><label for="logistik_kode">Logistik kode:</label>
           <input type="text" id="logistik_kode" />
           <label class="error" for="logistik_kode" id="logistik_kode_error">This field is required.</label></p> 
-          <p><label for="har_sn">Har serienummer:</label>
+        <p><label for="har_sn">Har serienummer:</label>
           <input type="checkbox" id="har_sn" />
           <label class="error" for="har_sn" id="har_sn_error">This field is required.</label></p>   
-          <p><input type="submit" id="submit_hw" value="Opret" /></p>
-        </fieldset>
-      </form>
+        <p><input type="submit" id="submit_hw" value="Opret" /></p>       
+      </form>      
+    </div>
+    <div id="menu">
       <p><a href="index.html">Opret produkt</a>&nbsp<a href="service.html">Opret service</a></p>
     </div>
   </body>

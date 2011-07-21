@@ -1,0 +1,24 @@
+/* Left Div */
+#left {
+    position: relative;
+    top: 20px;
+    width: 29%;
+    padding: 0 0px;
+    float:left;
+    text-align: left;
+ }
+
+/* Right Div */
+#right {
+    position: relative;
+    top: 20px;
+    width: 70%;
+    padding: 0 0px;
+    float:right;
+    text-align: left;
+ } 
+
+#menu {
+    position: absolute;
+    bottom: 0;
+}
