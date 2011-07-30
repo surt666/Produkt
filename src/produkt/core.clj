@@ -10,7 +10,6 @@
 (defprotocol ProduktHandler
   (opret [p])
   (slet [p])
-  (opdater [p o])
   (hent [p]))
 
 (defrecord Produkt [varenr navn services hardware meta])
@@ -45,7 +44,6 @@
     (riak-put "services" p))
   (slet [p]
     (riak/delete rc "services" (:id p)))
-  (opdater [p o])
   (hent [p]
     (let [s (riak-get "services" p)]
       (Service. (:id s) (:navn s) (:prov-system s) (:prov-id s)))))
@@ -55,8 +53,7 @@
   (opret [p]
     (riak-put "hardware" p))
   (slet [p]
-    (riak/delete rc "hardware" (:id p)))
-  (opdater [p o])
+    (riak/delete rc "hardware" (:id p))) 
   (hent [p]
     (let [h (riak-get "hardware" p)]
       (Hardware. (:id h) (:navn h) (:logistik-system h) (:logistik-kode h) (:har-sn h)))))
@@ -72,7 +69,6 @@
              :links links})))
   (slet [p]
     (riak/delete rc "produkter" (:varenr p)))
-  (opdater [p o])
   (hent [p]
     (let [res (riak/get rc "produkter" (:varenr p))
           links (:links res)

@@ -28,15 +28,15 @@
   
 (defroutes handler
   (GET "/produkt/findalle/:bucket" [bucket]
-       (json/json-str (find-alle bucket)))
+       (json-response (find-alle bucket) "application/json" :status 200))
 
   (GET "/produkt/find/:type/:id" [type id]
-       (json/json-str
+       (json-response
         (hent
          (cond
           (= type "service") (produkt.core.Service. id nil nil nil)
           (= type "hardware") (produkt.core.Hardware. id nil nil nil nil)
-          (= type "produkt") (produkt.core.Produkt. id nil nil nil nil)))))
+          (= type "produkt") (produkt.core.Produkt. id nil nil nil nil))) "application/json" :status 200))
 
   (DELETE "/produkt/slet/:type/:id" [type id]          
           (try
